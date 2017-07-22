@@ -1,0 +1,71 @@
+everySeconds: 5
+interval: "every {{ everySeconds }} seconds"
+setProfiling: true
+databases:
+  - 'test'
+mongo:
+  dbs: '{{ ENV.databases }}'
+  host: 'mongo'
+  port: 27017
+  url: "mongodb://{{mongo.host}}:{{mongo.port}}"
+thresholds:
+  unindexedTimeSpent: 0
+  dbStats:
+    collections: -1
+    views: -1
+    objects: -1
+    avgObjSize: -1 # TODO: Change to some reasonable number | in bytes
+    dataSize: -1 # TODO: Change to some reasonable number | in bytes
+    storageSize: -1 # TODO: Change to some reasonable number | in bytes
+    numExtents: -1
+    indexes: -1 # This checks that there is at least this many
+    indexSize: -1 # TODO: Change to some reasonable number | in bytes
+checks:
+  unindexedQueries: true
+  unusedIndexes: true
+  dbStats: true
+plugins:
+  hapi-method-loader:
+    _priority: -7
+  hapi-method-scheduler:
+    _priority: -6
+    timezone: 'America/Los_Angeles'
+    noParamsLength: true
+    schedule:
+      -
+        method: 'check'
+        time: '{{ interval }}'
+  hapi-mongodb:
+    url: '{{mongo.url}}'
+    _priority: -3
+    decorate: true
+  hapi-route-loader:
+    _enabled: false
+  hapi-logr:
+    reporters:
+      consoleColor:
+        options:
+          colors:
+            'error': 'red'
+            'warning': 'yellow'
+            'info': 'blue'
+      flat:
+        options:
+          tagColors:
+            'error': 'red'
+            'warning': 'yellow'
+            'info': 'blue'
+      slack:
+        reporter: 'logr-slack'
+        options:
+          username: 'HealthCheck'
+          hideTags: true
+          tagColors:
+            'error': 'danger'
+            'warning': 'warning'
+            'info': 'good'
+          filter:
+            - 'error'
+            - 'warning'
+            - 'start'
+  './lib/monitor':

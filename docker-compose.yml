@@ -1,0 +1,14 @@
+app:
+  build: '.'
+  dockerfile: 'DockerfileDev'
+  volumes:
+    - '.:/home/app/src'
+  links:
+    - 'db:mongo'
+  environment:
+    PORT: 8080
+    VIRTUAL_HOST: 'mongo-monitor.*'
+    FORCE_COLOR: 1
+db:
+  image: 'mongo'
+  command: 'mongod --smallfiles --quiet'

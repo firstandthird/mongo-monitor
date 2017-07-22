@@ -1,0 +1,42 @@
+#!/bin/bash
+
+NAME=mongomonitor_app_1
+CMD=$1
+shift
+
+if [[ -z "$CMD" ]]; then
+  docker-compose up --build
+  exit
+fi
+
+if [[ "$CMD" == "shell" ]]; then
+  docker-compose run --rm app sh
+  exit
+fi
+
+if [[ "$CMD" == "enter" ]]; then
+  docker exec -it $NAME sh
+  exit
+fi
+
+if [[ "$CMD" == "lint" ]]; then
+  docker-compose run --rm app npm run lint
+  exit
+fi
+
+if [[ "$CMD" == "test" ]]; then
+  if [[ -z "$@" ]];  then
+    docker-compose run --rm app npm run docker-test -- test
+  else
+    docker-compose run --rm app npm run docker-test -- $@
+  fi
+  exit
+fi
+
+if [[ "$CMD" == "mongo" ]]; then
+  docker-compose exec db mongo test
+  exit
+fi
+
+
+docker-compose $@

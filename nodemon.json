@@ -1,0 +1,17 @@
+{
+  "verbose": false,
+  "ignore": [
+    ".git",
+    "node_modules"
+  ],
+  "watch": [
+    "index.js",
+    "package.json",
+    "routes/**/*.js",
+    "methods/**/*.js",
+    "plugins/**/*.js",
+    "test/**/*.js",
+    "conf/*.yaml"
+  ],
+  "ext": "js yaml json"
+}
