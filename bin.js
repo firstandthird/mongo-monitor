@@ -65,7 +65,7 @@ const argv = require('yargs')
   describe: 'threshold for the minimum number of indexes',
   default: -1
 })
-.option('dbstats-indexe-size', {
+.option('dbstats-index-size', {
   describe: 'threshold for index size (in bytes)',
   default: -1
 })
