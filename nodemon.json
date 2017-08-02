@@ -5,13 +5,10 @@
     "node_modules"
   ],
   "watch": [
-    "index.js",
+    "bin.js",
     "package.json",
-    "routes/**/*.js",
-    "methods/**/*.js",
-    "plugins/**/*.js",
+    "lib/**/*.js",
     "test/**/*.js",
-    "conf/*.yaml"
   ],
-  "ext": "js yaml json"
+  "ext": "js"
 }

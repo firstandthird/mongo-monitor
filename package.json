@@ -2,38 +2,34 @@
   "name": "mongo-monitor",
   "version": "1.0.0",
   "description": "Monitors mongodb databases",
-  "main": "index.js",
+  "main": "bin.js",
+  "bin": {
+    "mongo-monitor": "./bin.js"
+  },
   "scripts": {
-    "start": "rapptor",
-    "test": "tap test/test.*",
+    "start": "node bin.js",
+    "test": "tap test/*.js",
     "lint": "eslint .",
-    "dev": "npm install && npm prune && nodemon -x rapptor"
+    "dev": "npm install && npm prune && nodemon bin.js --mongo mongodb://mongo:27017 --databases test test2 --interval 5 --set-profiling true"
   },
   "author": "First+Third",
   "license": "MIT",
   "dependencies": {
     "async": "^2.5.0",
-    "hapi-method-scheduler": "^2.2.0",
-    "hapi-mongodb": "^6.2.1",
-    "js-yaml": "^3.9.0",
     "logr": "^2.3.0",
     "logr-flat": "^2.0.0",
     "logr-slack": "^1.1.0",
-    "rapptor": "^1.17.0",
-    "wreck": "^12.2.2",
+    "mongodb": "^2.2.30",
     "yargs": "^8.0.2"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
+    "eslint": "^3.9.0",
     "eslint-config-firstandthird": "^3.3.0",
     "eslint-plugin-import": "^2.7.0",
     "nodemon": "^1.11.0",
-    "tap": "^10.7.0"
+    "tap": "^10.3.2"
   },
   "eslintConfig": {
-    "env": {
-      "browser": true
-    },
     "extends": "firstandthird",
     "rules": {
       "strict": 0
