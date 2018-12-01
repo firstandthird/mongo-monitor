@@ -1,3 +1,3 @@
 FROM firstandthird/node:10.10-2-dev
 
-CMD ["dumb-init", "npm", "run", "dev"]
+CMD ["dumb-init", "nodemon", "bin.js"]

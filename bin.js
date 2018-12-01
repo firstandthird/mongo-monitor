@@ -9,10 +9,14 @@ const argv = require('yargs')
     default: 'mongodb://localhost',
     demandOption: true,
   })
+  .option('verbose', {
+    describe: 'verbose mode',
+    default: false
+  })
   .option('interval', {
     alias: 'i',
     describe: 'polling interval expressed in seconds',
-    default: 60
+    default: 60 * 10
   })
   .option('set-profiling', {
     alias: 'p',
@@ -64,8 +68,7 @@ const argv = require('yargs')
     alias: 'db',
     describe: 'name of database to use',
     default: undefined,
-    demandOption: true,
-    array: true
+    demandOption: true
   })
   .option('name', {
     alias: 'n',
@@ -75,4 +78,5 @@ const argv = require('yargs')
   .env('MONGO_MONITOR')
   .argv;
 
+argv.databases = argv.databases.split(',');
 poll(argv);

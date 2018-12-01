@@ -10,7 +10,10 @@ services:
     links:
       - 'db:mongo'
     environment:
-      FORCE_COLOR: 1
+      MONGO_MONITOR_MONGO:
+      MONGO_MONITOR_DATABASES:
+      MONGO_MONITOR_VERBOSE: 1
+      LOGR: 'console'
   db:
     image: 'mongo'
     command: 'mongod --smallfiles --quiet'

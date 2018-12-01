@@ -8,8 +8,7 @@
   },
   "scripts": {
     "start": "node bin.js",
-    "lint": "eslint .",
-    "dev": "npm install && npm prune && nodemon bin.js --mongo mongodb://mongo:27017 --databases test test2 --interval 5 --set-profiling true"
+    "lint": "eslint ."
   },
   "author": "First+Third",
   "license": "MIT",
