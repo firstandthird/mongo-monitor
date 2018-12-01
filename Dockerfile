@@ -1,3 +1,3 @@
-FROM firstandthird/node:8.1-3-onbuild
+FROM firstandthird/node:10.10-2-onbuild
 
 CMD ["dumb-init", "node", "bin.js"]

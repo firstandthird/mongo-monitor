@@ -1,12 +1,18 @@
-app:
-  build: '.'
-  dockerfile: 'DockerfileDev'
-  volumes:
-    - '.:/home/app/src'
-  links:
-    - 'db:mongo'
-  environment:
-    FORCE_COLOR: 1
-db:
-  image: 'mongo'
-  command: 'mongod --smallfiles --quiet'
+version: '3.7'
+services:
+  app:
+    build:
+      context: '.'
+      dockerfile: 'DockerfileDev'
+    volumes:
+      - '.:/home/app/src:delegated'
+      - 'appnm:/home/app/src/node_modules'
+    links:
+      - 'db:mongo'
+    environment:
+      FORCE_COLOR: 1
+  db:
+    image: 'mongo'
+    command: 'mongod --smallfiles --quiet'
+volumes:
+  appnm:

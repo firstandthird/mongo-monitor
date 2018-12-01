@@ -1,6 +1,5 @@
 #!/bin/bash
 
-NAME=mongomonitor_app_1
 CMD=$1
 shift
 
@@ -16,6 +15,7 @@ fi
 
 if [[ "$CMD" == "enter" ]]; then
   docker exec -it $NAME sh
+  docker-compose exec app sh
   exit
 fi
 
@@ -24,18 +24,17 @@ if [[ "$CMD" == "lint" ]]; then
   exit
 fi
 
-if [[ "$CMD" == "test" ]]; then
-  if [[ -z "$@" ]];  then
-    docker-compose run --rm app npm run docker-test -- test
-  else
-    docker-compose run --rm app npm run docker-test -- $@
-  fi
-  exit
-fi
-
 if [[ "$CMD" == "mongo" ]]; then
   docker-compose exec db mongo test
   exit
+fi
+
+if [[ "$CMD" == "npmi" ]]; then
+  SERVICE=$2
+  PKG=$3
+  echo "Installing $PKG inside $SERVICE"
+  docker-compose run --rm $SERVICE npm install $PKG
+  exit 0
 fi
 
 

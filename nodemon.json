@@ -8,7 +8,8 @@
     "bin.js",
     "package.json",
     "lib/**/*.js",
-    "test/**/*.js",
+    "checks/**/*.js",
+    "test/**/*.js"
   ],
   "ext": "js"
 }
