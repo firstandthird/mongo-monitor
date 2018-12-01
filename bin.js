@@ -14,15 +14,6 @@ const argv = require('yargs')
     describe: 'polling interval expressed in seconds',
     default: 60
   })
-  .option('slackReportRate', {
-    alias: 'r',
-    describe: 'only slack report threshold warnings at a rate of once per slackReportRate',
-    default: 0
-  })
-  .option('slackHook', {
-    alias: 'l',
-    describe: 'slack hook'
-  })
   .option('set-profiling', {
     alias: 'p',
     describe: 'automatically enable profiling on all databases',
@@ -80,11 +71,6 @@ const argv = require('yargs')
     alias: 'n',
     describe: 'optional server name when posting messages',
     default: undefined
-  })
-  .option('verbose', {
-    alias: 'v',
-    describe: 'verbose logging',
-    default: false
   })
   .env('MONGO_MONITOR')
   .argv;
