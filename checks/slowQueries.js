@@ -1,17 +1,20 @@
 module.exports = async function(log, database, dbName, options, db) {
-  const results = await database.collection('system.profile').aggregate({
-    $match: {
-      millis: {
-        $gte: options['slow-threshold']
+  const results = await database.collection('system.profile').aggregate([
+    {
+      $match: {
+        millis: {
+          $gte: options['slow-threshold']
+        }
+      },
+    }, {
+      $group: {
+        _id: '$ns',
+        count: { $sum: 1 },
+        'max response time': { $max: '$millis' },
+        'avg response time': { $avg: '$millis' }
       }
-    },
-    $group: {
-      _id: '$ns',
-      count: { $sum: 1 },
-      'max response time': { $max: '$millis' },
-      'avg response time': { $avg: '$millis' }
     }
-  }, {
+  ], {
     $sort: {
       'max response time': -1
     }
