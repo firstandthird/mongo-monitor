@@ -64,6 +64,10 @@ const argv = require('yargs')
     describe: 'threshold for index size (in bytes)',
     default: -1
   })
+  .option('slow-threshold', {
+    describe: 'threshold for max slow query time',
+    default: 100
+  })
   .option('databases', {
     alias: 'db',
     describe: 'name of database to use',
@@ -74,6 +78,10 @@ const argv = require('yargs')
     alias: 'n',
     describe: 'optional server name when posting messages',
     default: undefined
+  })
+  .option('disable-check', {
+    describe: 'disable passed checks, comma separated',
+    default: ''
   })
   .env('MONGO_MONITOR')
   .argv;
