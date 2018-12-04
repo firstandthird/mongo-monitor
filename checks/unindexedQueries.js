@@ -17,7 +17,8 @@ module.exports = async function(log, database, dbName, options, db) {
       dbName,
       collection: result.ns,
       query: result.query,
-      timeSpent: result.millis
+      timeSpent: result.millis,
+      message: `Collscan found: ${dbName}.${result.ns} ${result.millis}ms → ${result.query}`
     });
   });
 };

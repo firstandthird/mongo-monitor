@@ -8,6 +8,6 @@ module.exports = async function(log, database, dbName, options, db) {
       return false;
     }
 
-    log(['check.unusedIndexes', 'info'], { dbName, collection, results });
+    log(['check.unusedIndexes', 'info'], { dbName, collection: collection.name, results, message: `Unused indexes found in ${dbName}.${collection.name}` });
   }));
 };
