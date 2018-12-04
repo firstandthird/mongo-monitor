@@ -1,5 +1,10 @@
 module.exports = async function(log, database, dbName, options, db) {
   const results = await database.collection('system.profile').aggregate({
+    $match: {
+      millis: {
+        $gte: options['slow-threshold']
+      }
+    },
     $group: {
       _id: '$ns',
       count: { $sum: 1 },
@@ -13,14 +18,12 @@ module.exports = async function(log, database, dbName, options, db) {
   }).toArray();
 
   results.forEach(result => {
-    if (result['max response time'] >= options['slow-threshold']) {
-      log(['check.slowQueries', 'warning'], {
-        dbName,
-        count: result.count,
-        maxResponseTime: result['max response time'],
-        avgResponseTime: result['avg response time'],
-        message: `Slow query in ${dbName}`
-      });
-    }
+    log(['check.slowQueries', 'warning'], {
+      dbName,
+      count: result.count,
+      maxResponseTime: result['max response time'],
+      avgResponseTime: result['avg response time'],
+      message: `Slow query in ${dbName}`
+    });
   });
 };
