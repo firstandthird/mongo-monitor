@@ -1,5 +1,7 @@
 module.exports = async function(log, database, dbName, options, db) {
-  const collections = await database.listCollections().toArray();
+  let collections = await database.listCollections().toArray();
+
+  collections = collections.filter(collection => collection.name !== 'system.profile');
 
   Promise.all(collections.map(async collection => {
     let results = await database.collection(collection.name).aggregate([{ $indexStats: { } }]).toArray();
