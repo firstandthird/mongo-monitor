@@ -68,6 +68,10 @@ const argv = require('yargs')
     describe: 'threshold for max slow query time',
     default: 100
   })
+  .option('scanned-returned-ratio', {
+    describe: 'average: scanned / returned objects',
+    default: 1000
+  })
   .option('databases', {
     alias: 'db',
     describe: 'name of database to use',
