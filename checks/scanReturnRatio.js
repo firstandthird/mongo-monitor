@@ -1,5 +1,5 @@
 module.exports = async function (log, database, dbName, options, db) {
-  const status = await database.runCommand({ serverStatus: 1 });
+  const status = await database.command({ serverStatus: 1 });
 
   if (!status || !status.metrics) {
     throw new Error(`No status returned for ${dbName}`);
